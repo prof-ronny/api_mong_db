@@ -8,7 +8,7 @@ app.use(express.json());
 
 const contatoRouter = require('./routes/contatoRoutes');
 app.use('/contatos', contatoRouter);
-
+console.log(process.env.MONGODB_URI);
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
