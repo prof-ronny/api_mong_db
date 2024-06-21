@@ -9,6 +9,6 @@ Configure the .env file passing your MongoDB URI
 Then run 
 ```bash
     npm instal
-    npm test //to run the tests, one must fail
+    npm test # To run the tests, one must fail
     npm start 
 ```
