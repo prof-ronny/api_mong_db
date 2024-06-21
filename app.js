@@ -6,8 +6,8 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const contatoRouter = require('./routes/contatoRoutes');
-app.use('/contatos', contatoRouter);
+const bibliotecaRouter = require('./routes/bibliotecaRoutes');
+app.use('/biblioteca', bibliotecaRouter);
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -21,6 +21,8 @@ db.once('open', () => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+module.exports = { app, server }; 
