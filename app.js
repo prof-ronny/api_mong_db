@@ -6,8 +6,8 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const contatoRouter = require('./routes/contatoRoutes');
-app.use('/contatos', contatoRouter);
+const carroRouter = require('./routes/carroRoutes');
+app.use('/carros', carroRouter);
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erro de conexão ao MongoDB:'));
 db.once('open', () => {
-  console.log('Conectado ao MongoDB Atlas!');
+  console.log('Conectado ao MongoDB!');
 });
 
 const PORT = process.env.PORT || 3000;
