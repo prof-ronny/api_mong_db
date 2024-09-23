@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors'); // Importando o pacote CORS
+
 dotenv.config();
 
 const app = express();
+app.use(cors()); // Habilitando CORS para todas as rotas
 app.use(express.json());
 
 const carroRouter = require('./routes/carroRoutes');
