@@ -29,6 +29,10 @@ const carroSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  preco: {
+    type: Number,
+    required: true,
+  },
   foto_url: {
     type: String,
     required: false,

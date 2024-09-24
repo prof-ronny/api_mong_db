@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
       tipo_combustivel: carro.tipo_combustivel,
       quilometragem: carro.quilometragem,
       foto_url: carro.foto_url,
+      preco: carro.preco,
     })));
   } catch (err) {
     console.error('Erro ao obter carros:', err);
@@ -36,6 +37,7 @@ router.get('/:id', getCarro, (req, res) => {
     tipo_combustivel: res.carro.tipo_combustivel,
     quilometragem: res.carro.quilometragem,
     foto_url: res.carro.foto_url,
+    preco: res.carro.preco,
   });
 });
 
@@ -50,6 +52,7 @@ router.post('/', async (req, res) => {
     tipo_combustivel: req.body.tipo_combustivel,
     quilometragem: req.body.quilometragem,
     foto_url: req.body.foto_url,
+    preco: req.body.preco,
   });
 
   try {
@@ -64,6 +67,7 @@ router.post('/', async (req, res) => {
       tipo_combustivel: newCarro.tipo_combustivel,
       quilometragem: newCarro.quilometragem,
       foto_url: newCarro.foto_url,
+      preco: newCarro.preco,
     });
   } catch (err) {
     console.error('Erro ao criar carro:', err);
@@ -95,6 +99,9 @@ router.put('/:id', getCarro, async (req, res) => {
   if (req.body.foto_url != null) {
     res.carro.foto_url = req.body.foto_url;
   }
+  if (req.body.preco != null) {
+    res.carro.preco = req.body.preco;
+  }
 
   try {
     const updatedCarro = await res.carro.save();
@@ -108,6 +115,7 @@ router.put('/:id', getCarro, async (req, res) => {
       tipo_combustivel: updatedCarro.tipo_combustivel,
       quilometragem: updatedCarro.quilometragem,
       foto_url: updatedCarro.foto_url,
+      preco: updatedCarro.preco,
     });
   } catch (err) {
     console.error('Erro ao atualizar carro:', err);
