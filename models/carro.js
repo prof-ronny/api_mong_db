@@ -12,8 +12,6 @@ const carroSchema = new mongoose.Schema({
   ano: {
     type: Number,
     required: true,
-    min: 1886, // The year the first car was invented
-    max: new Date().getFullYear(), // Current year
   },
   cor: {
     type: String,
@@ -26,12 +24,12 @@ const carroSchema = new mongoose.Schema({
   quilometragem: {
     type: Number,
     required: true,
-    min: 0, // No negative mileage
+    min: 0,
   },
   preco: {
     type: Number,
     required: true,
-    min: 0, // No negative price
+    min: 0,
   },
   foto_url: {
     type: String,
