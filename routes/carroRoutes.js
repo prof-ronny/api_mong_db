@@ -44,6 +44,7 @@ router.get('/:id', getCarro, (req, res) => {
 router.post('/', async (req, res) => {
   console.log('Requisição recebida para criar um novo carro:', req.body);
   const carro = new Carro({
+    id: req.body.id,
     marca: req.body.marca,
     modelo: req.body.modelo,
     ano: req.body.ano,
@@ -136,6 +137,12 @@ router.delete('/:id', getCarro, async (req, res) => {
 // Middleware para obter um carro por ID
 async function getCarro(req, res, next) {
   console.log('Buscando carro com ID:', req.params.id);
+
+  // Validação do ID
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: 'ID inválido' });
+  }
+
   try {
     const carro = await Carro.findById(req.params.id);
     if (carro == null) {
@@ -149,5 +156,6 @@ async function getCarro(req, res, next) {
     return res.status(500).json({ message: err.message });
   }
 }
+
 
 module.exports = router;
