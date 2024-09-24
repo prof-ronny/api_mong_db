@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
     const carros = await Carro.find();
     console.log('Carros encontrados:', carros);
     res.json(carros.map(carro => ({
+      id: carro.id,
       marca: carro.marca,
       modelo: carro.modelo,
       ano: carro.ano,
