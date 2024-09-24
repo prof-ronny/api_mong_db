@@ -22,7 +22,6 @@ const carroSchema = new mongoose.Schema({
   tipo_combustivel: {
     type: String,
     required: true,
-    enum: ['Gasolina', 'Álcool', 'Diesel', 'Elétrico', 'Híbrido'], // Restrict to specific values
   },
   quilometragem: {
     type: Number,
@@ -37,12 +36,6 @@ const carroSchema = new mongoose.Schema({
   foto_url: {
     type: String,
     required: false,
-    validate: {
-      validator: function(v) {
-        return /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/.test(v); // Basic URL validation
-      },
-      message: props => `${props.value} não é uma URL válida!`,
-    },
   },
 }, { timestamps: true });
 
