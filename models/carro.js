@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const carroSchema = new mongoose.Schema({
   _id: {
-    type: Number,
+    type: String,
     required: true,
   },
   marca: {
