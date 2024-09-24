@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const carroSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    required: false,
-  },
   marca: {
     type: String,
     required: true,
@@ -16,6 +12,8 @@ const carroSchema = new mongoose.Schema({
   ano: {
     type: Number,
     required: true,
+    min: 1886, // The year the first car was invented
+    max: new Date().getFullYear(), // Current year
   },
   cor: {
     type: String,
@@ -24,20 +22,29 @@ const carroSchema = new mongoose.Schema({
   tipo_combustivel: {
     type: String,
     required: true,
+    enum: ['Gasolina', 'Álcool', 'Diesel', 'Elétrico', 'Híbrido'], // Restrict to specific values
   },
   quilometragem: {
     type: Number,
     required: true,
+    min: 0, // No negative mileage
   },
   preco: {
     type: Number,
     required: true,
+    min: 0, // No negative price
   },
   foto_url: {
     type: String,
     required: false,
+    validate: {
+      validator: function(v) {
+        return /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/.test(v); // Basic URL validation
+      },
+      message: props => `${props.value} não é uma URL válida!`,
+    },
   },
-});
+}, { timestamps: true });
 
 const Carro = mongoose.model('Carro', carroSchema);
 

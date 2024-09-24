@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const carroRouter = require('./routes/carroRoutes');
 
 dotenv.config();
 
@@ -9,12 +10,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const carroRouter = require('./routes/carroRoutes');
+// Use carroRouter for routes under '/carros'
 app.use('/carros', carroRouter);
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Conectado ao MongoDB!'))
-  .catch(err => console.error('Erro de conexão ao MongoDB:', err));
+// Connect to MongoDB
+const connectToDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Conectado ao MongoDB!');
+  } catch (err) {
+    console.error('Erro de conexão ao MongoDB:', err);
+    process.exit(1); // Exit the process if DB connection fails
+  }
+};
+
+connectToDB();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -24,5 +34,5 @@ app.listen(PORT, () => {
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: 'Algo deu errado!' });
+  res.status(err.status || 500).json({ message: err.message || 'Algo deu errado!' });
 });
