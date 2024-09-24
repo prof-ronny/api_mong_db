@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
     const carros = await Carro.find();
     console.log('Carros encontrados:', carros);
     res.json(carros.map(carro => ({
-      _id: carro._id,
       marca: carro.marca,
       modelo: carro.modelo,
       ano: carro.ano,
@@ -29,7 +28,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', getCarro, (req, res) => {
   console.log('Carro encontrado:', res.carro);
   res.json({
-    _id: res.carro._id,
     marca: res.carro.marca,
     modelo: res.carro.modelo,
     ano: res.carro.ano,
@@ -59,7 +57,6 @@ router.post('/', async (req, res) => {
     const newCarro = await carro.save();
     console.log('Novo carro criado:', newCarro);
     res.status(201).json({
-      _id: newCarro._id,
       marca: newCarro.marca,
       modelo: newCarro.modelo,
       ano: newCarro.ano,
@@ -107,7 +104,6 @@ router.put('/:id', getCarro, async (req, res) => {
     const updatedCarro = await res.carro.save();
     console.log('Carro atualizado:', updatedCarro);
     res.json({
-      _id: updatedCarro._id,
       marca: updatedCarro.marca,
       modelo: updatedCarro.modelo,
       ano: updatedCarro.ano,
