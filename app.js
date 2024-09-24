@@ -6,22 +6,15 @@ const cors = require('cors');
 dotenv.config();
 
 const app = express();
-app.use(cors()); // Habilitando CORS para todas as rotas
+app.use(cors());
 app.use(express.json());
 
 const carroRouter = require('./routes/carroRoutes');
 app.use('/carros', carroRouter);
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Erro de conexão ao MongoDB:'));
-db.once('open', () => {
-  console.log('Conectado ao MongoDB!');
-});
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Conectado ao MongoDB!'))
+  .catch(err => console.error('Erro de conexão ao MongoDB:', err));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
